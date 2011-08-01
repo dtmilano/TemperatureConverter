@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="fill_parent"
+	android:layout_height="fill_parent">
+	<TextView android:layout_width="fill_parent"
+		android:layout_height="wrap_content" android:text="@string/prompt" />
+	<TextView android:layout_width="wrap_content"
+		android:layout_height="wrap_content" android:text="Celsius"
+		android:textStyle="bold" android:id="@+id/celsius_label" />
+	<com.example.i2at.tc.EditNumber android:layout_height="wrap_content"
+		android:layout_width="match_parent" android:inputType="numberDecimal"
+		android:id="@+id/celsius" android:gravity="right|center_vertical">
+		<requestFocus />
+	</com.example.i2at.tc.EditNumber>
+	<TextView android:layout_width="wrap_content"
+		android:layout_height="wrap_content" android:text="Fahrenheit"
+		android:textStyle="bold" android:id="@+id/fahrenheit_label" />
+	<com.example.i2at.tc.EditNumber android:layout_height="wrap_content"
+		android:layout_width="match_parent" android:inputType="numberDecimal"
+		android:id="@+id/fahrenheit" android:gravity="right|center_vertical"/>
+</LinearLayout>
