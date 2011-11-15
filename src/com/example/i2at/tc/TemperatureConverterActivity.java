@@ -1,9 +1,17 @@
 package com.example.i2at.tc;
 
+import java.util.List;
+
 import android.app.Activity;
+import android.content.ComponentName;
+import android.content.pm.InstrumentationInfo;
 import android.os.Bundle;
+import android.test.InstrumentationTestRunner;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 public class TemperatureConverterActivity extends Activity {
     /**
@@ -78,6 +86,9 @@ public class TemperatureConverterActivity extends Activity {
 
 	}
 
+	private static final int MENU_ITEM_RUN_TESTS = 1;
+	
+
 	private EditNumber mCelsius;
 	private EditNumber mFahrenheit;
 
@@ -109,4 +120,36 @@ public class TemperatureConverterActivity extends Activity {
         });
         
     }
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		menu.add(Menu.NONE, MENU_ITEM_RUN_TESTS, Menu.NONE, "Run tests");
+		return super.onCreateOptionsMenu(menu);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch ( item.getItemId() ) {
+		case MENU_ITEM_RUN_TESTS:
+			runTests();
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+
+	private void runTests() {
+		final String packageName = getPackageName();
+		final List<InstrumentationInfo> list = getPackageManager().queryInstrumentation(packageName, 0);
+		if ( list.isEmpty() ) {
+			Toast.makeText(this, "Cannot find instrumentation for " + packageName, Toast.LENGTH_SHORT).show();
+			return;
+		}
+		final InstrumentationInfo instrumentationInfo = list.get(0);
+		final ComponentName componentName = new ComponentName(instrumentationInfo.packageName, instrumentationInfo.name);
+		if ( !startInstrumentation(componentName, null, null) ) {
+			Toast.makeText(this, "Cannot run instrumentation for " + packageName, Toast.LENGTH_SHORT).show();
+		}
+	}
+    
+    
 }

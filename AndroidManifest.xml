@@ -4,6 +4,8 @@
       android:versionCode="1"
       android:versionName="1.0">
     <uses-sdk android:minSdkVersion="10" />
+    <instrumentation android:name="com.example.instrumentation.EmmaInstrumentation" android:targetPackage="com.example.i2at.tc"></instrumentation>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application android:icon="@drawable/icon" android:label="@string/app_name">
         <activity android:name=".TemperatureConverterActivity"
@@ -13,6 +15,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="com.example.instrumentation.EmmaInstrumentation$InstrumentedActivity"></activity>
 
     </application>
 </manifest>
