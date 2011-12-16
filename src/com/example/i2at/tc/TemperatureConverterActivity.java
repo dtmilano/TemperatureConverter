@@ -6,18 +6,22 @@ import android.app.Activity;
 import android.content.ComponentName;
 import android.content.pm.InstrumentationInfo;
 import android.os.Bundle;
-import android.test.InstrumentationTestRunner;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+/**
+ * @author diego
+ *
+ */
 public class TemperatureConverterActivity extends Activity {
-    /**
-	 * @author diego
-	 *
-	 */
+    @SuppressWarnings("unused")
+    private static final String TAG = "TemperatureConverterActivity";
+    
+    private static final int MENU_ITEM_RUN_TESTS = 1;
+    
 	public abstract class TemperatureChangeWatcher implements TextWatcher {
 		private EditNumber mSource;
 		private EditNumber mDest;
@@ -86,8 +90,6 @@ public class TemperatureConverterActivity extends Activity {
 
 	}
 
-	private static final int MENU_ITEM_RUN_TESTS = 1;
-	
 
 	private EditNumber mCelsius;
 	private EditNumber mFahrenheit;
@@ -123,7 +125,7 @@ public class TemperatureConverterActivity extends Activity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		menu.add(Menu.NONE, MENU_ITEM_RUN_TESTS, Menu.NONE, "Run tests");
+		menu.add(Menu.NONE, MENU_ITEM_RUN_TESTS, Menu.NONE, "Run tests").setIcon(android.R.drawable.ic_menu_manage);
 		return super.onCreateOptionsMenu(menu);
 	}
 
@@ -144,12 +146,17 @@ public class TemperatureConverterActivity extends Activity {
 			Toast.makeText(this, "Cannot find instrumentation for " + packageName, Toast.LENGTH_SHORT).show();
 			return;
 		}
-		final InstrumentationInfo instrumentationInfo = list.get(0);
+		InstrumentationInfo instrumentationInfo = null;
+		for (InstrumentationInfo ii: list) {
+		    if ( (packageName + ".test").equals(ii.packageName) ) {
+		        instrumentationInfo = ii;
+		        break;
+		    }
+		}
 		final ComponentName componentName = new ComponentName(instrumentationInfo.packageName, instrumentationInfo.name);
 		if ( !startInstrumentation(componentName, null, null) ) {
 			Toast.makeText(this, "Cannot run instrumentation for " + packageName, Toast.LENGTH_SHORT).show();
 		}
 	}
-    
-    
+
 }
