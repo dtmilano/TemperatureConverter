@@ -2,7 +2,6 @@ package com.example.i2at.tc;
 
 import java.util.List;
 
-import android.app.Activity;
 import android.content.ComponentName;
 import android.content.pm.InstrumentationInfo;
 import android.os.Bundle;
@@ -10,13 +9,20 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.android.debug.hv.LocalViewServerActivity;
 
 /**
  * @author diego
  *
  */
-public class TemperatureConverterActivity extends Activity {
+public class TemperatureConverterActivity extends LocalViewServerActivity {
+    public static final String FAHRENHEIT_KEY = "com.example.i2at.tc.Fahrenheit";
+
+    public static final String CELSIUS_KEY = "com.example.i2at.tc.Celsius";
+
     @SuppressWarnings("unused")
     private static final String TAG = "TemperatureConverterActivity";
     
@@ -94,6 +100,8 @@ public class TemperatureConverterActivity extends Activity {
 	private EditNumber mCelsius;
 	private EditNumber mFahrenheit;
 
+    private TextView mDebug;
+
 	/** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -107,6 +115,13 @@ public class TemperatureConverterActivity extends Activity {
 
 			@Override
 			protected double convert(double temp) {
+		        int[] location = new int[2];
+		        mCelsius.getLocationOnScreen(location);
+		        mDebug.append("celsius: loc on screen (" + location[0] + "," + location[1] + ")\n");
+		        mDebug.append("         pos (" + mCelsius.getLeft() + "," + mCelsius.getTop() + ")\n");
+		        mFahrenheit.getLocationOnScreen(location);
+                mDebug.append("fahrenheit: loc on screen (" + location[0] + "," + location[1] + ")\n");
+                mDebug.append("         pos (" + mFahrenheit.getLeft() + "," + mFahrenheit.getTop() + ")\n");
 				return TemperatureConverter.celsiusToFahrenheit(temp);
 			}
         	
@@ -121,9 +136,31 @@ public class TemperatureConverterActivity extends Activity {
         	
         });
         
+        if ( savedInstanceState != null ) {
+            if ( savedInstanceState.containsKey(CELSIUS_KEY) ) {
+                mCelsius.setNumber(savedInstanceState.getDouble(CELSIUS_KEY));
+            }
+            else if ( savedInstanceState.containsKey(FAHRENHEIT_KEY) ) {
+                mFahrenheit.setNumber(savedInstanceState.getDouble(FAHRENHEIT_KEY));
+            }
+        }
     }
 
-	@Override
+	/* (non-Javadoc)
+     * @see android.app.Activity#onAttachedToWindow()
+     */
+    @Override
+    public void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        mDebug = (TextView)findViewById(R.id.debug);
+        int[] location = new int[2];
+        mCelsius.getLocationOnScreen(location);
+        mDebug.append("DEBUG:\n");
+        mDebug.append("celsius: loc on screen (" + location[0] + "," + location[1] + ")\n");
+        mDebug.append("         pos (" + mDebug.getLeft() + "," + mDebug.getTop() + ")\n");
+    }
+
+    @Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		menu.add(Menu.NONE, MENU_ITEM_RUN_TESTS, Menu.NONE, "Run tests").setIcon(android.R.drawable.ic_menu_manage);
 		return super.onCreateOptionsMenu(menu);
@@ -159,4 +196,13 @@ public class TemperatureConverterActivity extends Activity {
 		}
 	}
 
+    public double getCelsius() {
+        return mCelsius.getNumber();
+    }
+
+    public double getFahrenheit() {
+        return mFahrenheit.getNumber();
+    }
+
+    
 }

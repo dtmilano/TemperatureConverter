@@ -1,21 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:orientation="vertical" android:layout_width="fill_parent"
-	android:layout_height="fill_parent">
+    android:id="@+id/main_layout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
 	<TextView android:layout_width="fill_parent"
 		android:layout_height="wrap_content" android:text="@string/prompt" />
-	<TextView android:layout_width="wrap_content"
-		android:layout_height="wrap_content" android:text="Celsius"
-		android:textStyle="bold" android:id="@+id/celsius_label" />
-	<com.example.i2at.tc.EditNumber android:layout_height="wrap_content"
-		android:layout_width="match_parent" android:inputType="numberDecimal"
-		android:id="@+id/celsius" android:gravity="right|center_vertical">
+
+	<TextView
+	    android:id="@+id/celsius_label"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:text="@string/celsius"
+	    android:textStyle="bold" />
+
+	<com.example.i2at.tc.EditNumber
+	    android:id="@+id/celsius"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:gravity="right|center_vertical"
+	    android:inputType="numberDecimal"
+	    android:tag="celsius" >
+
 		<requestFocus />
 	</com.example.i2at.tc.EditNumber>
 	<TextView android:layout_width="wrap_content"
-		android:layout_height="wrap_content" android:text="Fahrenheit"
+		android:layout_height="wrap_content" android:text="@string/fahrenheit"
 		android:textStyle="bold" android:id="@+id/fahrenheit_label" />
-	<com.example.i2at.tc.EditNumber android:layout_height="wrap_content"
-		android:layout_width="match_parent" android:inputType="numberDecimal"
-		android:id="@+id/fahrenheit" android:gravity="right|center_vertical"/>
+
+	<com.example.i2at.tc.EditNumber
+	    android:id="@+id/fahrenheit"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:gravity="right|center_vertical"
+	    android:inputType="numberDecimal"
+	    android:tag="fahrenheit" />
+
+	<TextView
+	    android:id="@+id/debug"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:textAppearance="?android:attr/textAppearanceMedium"
+	    android:textColor="#ccff00ff" />
+
 </LinearLayout>

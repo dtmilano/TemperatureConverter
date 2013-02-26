@@ -3,4 +3,6 @@
     <string name="hello">Hello World, TemperatureConverterActivity!</string>
     <string name="app_name">TemperatureConverter</string>
     <string name="prompt">Enter the temperature to convert</string>
+    <string name="celsius">Celsius</string>
+    <string name="fahrenheit">Fahrenheit</string>
 </resources>
