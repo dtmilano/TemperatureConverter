@@ -15,6 +15,9 @@ import android.widget.Toast;
 import com.android.debug.hv.LocalViewServerActivity;
 
 /**
+ * <em>TemperatureConverterActivity</em> is a demonstration Activity used to show some testing
+ * features.
+ * 
  * @author diego
  *
  */
