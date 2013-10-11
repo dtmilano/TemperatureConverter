@@ -103,7 +103,7 @@ public class TemperatureConverterActivityTests extends ActivityInstrumentationTe
 		final double c = 32.5;
 		mCelsius.requestFocus();
 		mCelsius.setNumber(c);
-		mCelsius.requestFocus();
+		mFahrenheit.requestFocus();
 		final double expected = TemperatureConverter.celsiusToFahrenheit(c);
 		final double actual = mFahrenheit.getNumber();
 		final double delta = Math.abs(expected - actual);
