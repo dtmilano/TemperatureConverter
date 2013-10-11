@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="com.example.i2at.tc"
-      android:versionCode="2000"
-      android:versionName="2.0">
-    <uses-sdk android:minSdkVersion="10" />
+      android:versionCode="20001"
+      android:versionName="2.0.1">
+    <uses-sdk android:minSdkVersion="17" />
     <instrumentation android:name="com.example.instrumentation.EmmaInstrumentation" android:targetPackage="com.example.i2at.tc"></instrumentation>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.INTERNET"/>
