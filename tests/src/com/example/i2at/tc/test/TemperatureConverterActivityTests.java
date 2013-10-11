@@ -13,6 +13,7 @@ import android.view.View;
 import com.example.i2at.tc.EditNumber;
 import com.example.i2at.tc.TemperatureConverter;
 import com.example.i2at.tc.TemperatureConverterActivity;
+import android.test.suitebuilder.annotation.Suppress;
 
 /**
  * @author diego
@@ -109,6 +110,7 @@ public class TemperatureConverterActivityTests extends ActivityInstrumentationTe
 		assertTrue("delta=" + delta, delta < 0.005);
 	}
 
+    @Suppress
 	public void testForceFail() {
 		fail("Forced fail");
 	}
