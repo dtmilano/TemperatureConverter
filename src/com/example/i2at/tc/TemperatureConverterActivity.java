@@ -8,6 +8,7 @@ import android.content.pm.InstrumentationInfo;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -84,6 +85,7 @@ public class TemperatureConverterActivity extends LocalViewServerActivity {
                 // this is thrown while a number is entered
                 // for example just a '-'
             } catch (Exception e) {
+                Log.e(TAG,  "ERROR", e);
                 mSource.setError("ERROR: " + e.getLocalizedMessage());
             }
         }
@@ -122,16 +124,6 @@ public class TemperatureConverterActivity extends LocalViewServerActivity {
 
             @Override
             protected double convert(double temp) {
-                int[] location = new int[2];
-                mCelsius.getLocationOnScreen(location);
-                mDebug.append("celsius: loc on screen (" + location[0] + "," + location[1] + ")\n");
-                mDebug.append("         pos (" + mCelsius.getLeft() + "," + mCelsius.getTop()
-                        + ")\n");
-                mFahrenheit.getLocationOnScreen(location);
-                mDebug.append("fahrenheit: loc on screen (" + location[0] + "," + location[1]
-                        + ")\n");
-                mDebug.append("         pos (" + mFahrenheit.getLeft() + "," + mFahrenheit.getTop()
-                        + ")\n");
                 return TemperatureConverter.celsiusToFahrenheit(temp);
             }
 
@@ -153,23 +145,6 @@ public class TemperatureConverterActivity extends LocalViewServerActivity {
             else if (savedInstanceState.containsKey(FAHRENHEIT_KEY)) {
                 mFahrenheit.setNumber(savedInstanceState.getDouble(FAHRENHEIT_KEY));
             }
-        }
-    }
-
-    /*
-     * (non-Javadoc)
-     * @see android.app.Activity#onAttachedToWindow()
-     */
-    @Override
-    public void onAttachedToWindow() {
-        super.onAttachedToWindow();
-        if (DEBUG) {
-            mDebug = (TextView) findViewById(R.id.debug);
-            int[] location = new int[2];
-            mCelsius.getLocationOnScreen(location);
-            mDebug.append("DEBUG:\n");
-            mDebug.append("celsius: loc on screen (" + location[0] + "," + location[1] + ")\n");
-            mDebug.append("         pos (" + mDebug.getLeft() + "," + mDebug.getTop() + ")\n");
         }
     }
 

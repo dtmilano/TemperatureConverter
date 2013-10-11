@@ -19,6 +19,7 @@
 	    android:id="@+id/celsius"
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
+	    android:contentDescription="celsius"
 	    android:gravity="right|center_vertical"
 	    android:inputType="numberDecimal"
 	    android:tag="celsius" >
@@ -33,6 +34,7 @@
 	    android:id="@+id/fahrenheit"
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
+	    android:contentDescription="fahrenheit"
 	    android:gravity="right|center_vertical"
 	    android:inputType="numberDecimal"
 	    android:tag="fahrenheit" />
