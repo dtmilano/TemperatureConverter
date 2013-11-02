@@ -44,8 +44,10 @@ public class TemperatureConverterActivityUnitTests extends
         startActivity(null, null, null);
         TemperatureConverterActivity activity = getActivity();
         assertNotNull(activity);
-        assertEquals(123.4, activity.getCelsius());
-        assertEquals(TemperatureConverter.celsiusToFahrenheit(123.4), activity.getFahrenheit());
+        final double c = activity.getCelsius();
+        assertEquals(123.4, c);
+        final double f = activity.getFahrenheit();
+        assertEquals(TemperatureConverter.celsiusToFahrenheit(c), f);
     }
 
 }

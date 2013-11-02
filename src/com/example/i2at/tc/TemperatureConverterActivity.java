@@ -32,7 +32,7 @@ public class TemperatureConverterActivity extends LocalViewServerActivity {
 
     private static final int MENU_ITEM_RUN_TESTS = 1;
 
-    private static final boolean DEBUG = false;
+    private static final boolean DEBUG = true;
 
     public abstract class TemperatureChangeWatcher implements TextWatcher {
         private EditNumber mSource;
@@ -114,6 +114,9 @@ public class TemperatureConverterActivity extends LocalViewServerActivity {
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        if (DEBUG) {
+            Log.d(TAG, "onCreate(" + savedInstanceState + ")");
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
@@ -140,7 +143,12 @@ public class TemperatureConverterActivity extends LocalViewServerActivity {
 
         if (savedInstanceState != null) {
             if (savedInstanceState.containsKey(CELSIUS_KEY)) {
-                mCelsius.setNumber(savedInstanceState.getDouble(CELSIUS_KEY));
+                final double c = savedInstanceState.getDouble(CELSIUS_KEY);
+                if (DEBUG) {
+                    Log.d(TAG, "onCreate: restoring celsius: " + c);
+                }
+                mCelsius.setNumber(c);
+                mFahrenheit.requestFocus();
             }
             else if (savedInstanceState.containsKey(FAHRENHEIT_KEY)) {
                 mFahrenheit.setNumber(savedInstanceState.getDouble(FAHRENHEIT_KEY));
