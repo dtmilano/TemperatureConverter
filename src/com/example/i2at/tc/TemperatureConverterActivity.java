@@ -1,8 +1,6 @@
 
 package com.example.i2at.tc;
 
-import java.util.List;
-
 import android.content.ComponentName;
 import android.content.pm.InstrumentationInfo;
 import android.os.Bundle;
@@ -11,10 +9,14 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnFocusChangeListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.debug.hv.LocalViewServerActivity;
+
+import java.util.List;
 
 /**
  * <em>TemperatureConverterActivity</em> is a demonstration Activity used to
@@ -108,6 +110,31 @@ public class TemperatureConverterActivity extends LocalViewServerActivity {
 
     }
 
+    /**
+     * Handles focus changes between the entry fields and sets the value of the
+     * filed receiving focus accordingly.
+     */
+    private OnFocusChangeListener mTemperatureEntryFocusChangeListener = new OnFocusChangeListener() {
+
+        @Override
+        public void onFocusChange(View dest, boolean hasFocus) {
+            if (!hasFocus) {
+                // nothing to do if we're loosing focus
+                return;
+            }
+            
+            if (dest == mCelsius) {
+                mCelsius.setNumber(TemperatureConverter.fahrenheitToCelsius(mFahrenheit.getNumber()));
+            }
+            else if (dest == mFahrenheit) {
+                mFahrenheit.setNumber(TemperatureConverter.celsiusToFahrenheit(mCelsius.getNumber()));
+            }
+            else {
+                throw new IllegalArgumentException("View=" + dest + " not supported");
+            }
+        }
+    };
+    
     private EditNumber mCelsius;
     private EditNumber mFahrenheit;
 
@@ -163,6 +190,9 @@ public class TemperatureConverterActivity extends LocalViewServerActivity {
                 mCelsius.setNumber(c);
             }
         }
+        
+        mCelsius.setOnFocusChangeListener(mTemperatureEntryFocusChangeListener);
+        mFahrenheit.setOnFocusChangeListener(mTemperatureEntryFocusChangeListener);
     }
 
     @Override

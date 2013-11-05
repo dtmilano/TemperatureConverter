@@ -95,7 +95,7 @@ public class TemperatureConverterActivityTests extends ActivityInstrumentationTe
 		final double expected = TemperatureConverter.fahrenheitToCelsius(f);
 		final double actual = mCelsius.getNumber();
 		final double delta = Math.abs(expected - actual);
-		assertTrue("delta=" + delta, delta < 0.005);
+		assertTrue("delta=" + delta + " expected=" + expected + " actual=" + actual, delta < 0.005);
 	}
 	
 	@UiThreadTest
@@ -111,7 +111,7 @@ public class TemperatureConverterActivityTests extends ActivityInstrumentationTe
 		final double expected = TemperatureConverter.celsiusToFahrenheit(c);
 		final double actual = mFahrenheit.getNumber();
 		final double delta = Math.abs(expected - actual);
-		assertTrue("delta=" + delta, delta < 0.005);
+		assertTrue("delta=" + delta + " expected=" + expected + " actual=" + actual, delta < 0.005);
 	}
 
     @Suppress
