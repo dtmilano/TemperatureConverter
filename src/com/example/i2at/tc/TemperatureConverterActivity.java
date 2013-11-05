@@ -35,6 +35,8 @@ public class TemperatureConverterActivity extends LocalViewServerActivity {
     private static final boolean DEBUG = true;
 
     public abstract class TemperatureChangeWatcher implements TextWatcher {
+        private static final String TAG = "TemperatureChangeWatcher";
+        
         private EditNumber mSource;
         private EditNumber mDest;
 
@@ -74,7 +76,7 @@ public class TemperatureConverterActivity extends LocalViewServerActivity {
                 return;
             }
             try {
-                android.util.Log.v("TemperatureChangeWatcher", "converting temp=" + str + "{"
+                android.util.Log.v(TAG, "converting temp=" + str + "{"
                         + Double.parseDouble(str) + "}");
                 final double result = convert(Double.parseDouble(str));
                 android.util.Log.v("TemperatureChangeWatcher", "result=" + result);
@@ -144,14 +146,21 @@ public class TemperatureConverterActivity extends LocalViewServerActivity {
         if (savedInstanceState != null) {
             if (savedInstanceState.containsKey(CELSIUS_KEY)) {
                 final double c = savedInstanceState.getDouble(CELSIUS_KEY);
+                final double f = TemperatureConverter.celsiusToFahrenheit(c);
                 if (DEBUG) {
                     Log.d(TAG, "onCreate: restoring celsius: " + c);
                 }
                 mCelsius.setNumber(c);
-                mFahrenheit.requestFocus();
+                mFahrenheit.setNumber(f);
             }
             else if (savedInstanceState.containsKey(FAHRENHEIT_KEY)) {
-                mFahrenheit.setNumber(savedInstanceState.getDouble(FAHRENHEIT_KEY));
+                final double f = savedInstanceState.getDouble(FAHRENHEIT_KEY);
+                final double c = TemperatureConverter.fahrenheitToCelsius(f);
+                if (DEBUG) {
+                    Log.d(TAG, "onCreate: restoring fahrenheit: " + f);
+                }
+                mFahrenheit.setNumber(f);
+                mCelsius.setNumber(c);
             }
         }
     }

@@ -41,7 +41,9 @@ public class TemperatureConverterActivityUnitTests extends
     }
     
     public final void testOnCreateBundle() {
-        startActivity(null, null, null);
+        final Bundle savedInstanceState = new Bundle();
+        savedInstanceState.putDouble(TemperatureConverterActivity.CELSIUS_KEY, 123.4);
+        startActivity(null, savedInstanceState, null);
         TemperatureConverterActivity activity = getActivity();
         assertNotNull(activity);
         final double c = activity.getCelsius();
