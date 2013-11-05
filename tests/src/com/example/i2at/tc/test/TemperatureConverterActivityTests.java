@@ -91,6 +91,7 @@ public class TemperatureConverterActivityTests extends ActivityInstrumentationTe
 		mFahrenheit.setNumber(f);
 		assertEquals(f, mFahrenheit.getNumber());
 		assertTrue(mCelsius.requestFocus());
+		assertTrue(mCelsius.isFocused());
 		final double expected = TemperatureConverter.fahrenheitToCelsius(f);
 		final double actual = mCelsius.getNumber();
 		final double delta = Math.abs(expected - actual);
@@ -101,7 +102,7 @@ public class TemperatureConverterActivityTests extends ActivityInstrumentationTe
 	public void testCelsiusToFahrenheitConversion() {
 		mCelsius.clear();
 		mFahrenheit.clear();
-		final double c = 32.5;
+		final double c = 100;
 		assertTrue(mCelsius.requestFocus());
 		mCelsius.setNumber(c);
 		assertEquals(c, mCelsius.getNumber());
