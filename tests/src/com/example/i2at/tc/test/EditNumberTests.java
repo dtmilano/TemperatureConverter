@@ -46,6 +46,13 @@ public class EditNumberTests extends AndroidTestCase {
 	}
 
 	/**
+     * Test method for {@link com.example.i2at.tc.EditNumber#EditNumber(android.content.Context, android.util.AttributeSet, int)}.
+     */
+	public final void testEditNumberContextAttributeSetInt() {
+	    assertNotNull(new EditNumber(mContext, null, 0));
+	}
+	
+	/**
 	 * Test method for {@link com.example.i2at.tc.EditNumber#clear()}.
 	 */
 	public final void testClear() {
