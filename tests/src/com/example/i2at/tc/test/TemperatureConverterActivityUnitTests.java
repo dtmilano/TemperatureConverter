@@ -40,16 +40,27 @@ public class TemperatureConverterActivityUnitTests extends
         return super.startActivity(intent, savedInstanceState, lastNonConfigurationInstance);
     }
     
-    public final void testOnCreateBundle() {
+    public final void testOnCreateBundle_celsiusKey() {
         final Bundle savedInstanceState = new Bundle();
         savedInstanceState.putDouble(TemperatureConverterActivity.CELSIUS_KEY, 123.4);
         startActivity(null, savedInstanceState, null);
-        TemperatureConverterActivity activity = getActivity();
+        final TemperatureConverterActivity activity = getActivity();
         assertNotNull(activity);
         final double c = activity.getCelsius();
         assertEquals(123.4, c);
         final double f = activity.getFahrenheit();
         assertEquals(TemperatureConverter.celsiusToFahrenheit(c), f);
     }
-
+    
+    public final void testOnCreateBundle_fahrenheitKey() {
+        final Bundle savedInstanceState = new Bundle();
+        savedInstanceState.putDouble(TemperatureConverterActivity.FAHRENHEIT_KEY, 32.0);
+        startActivity(null, savedInstanceState, null);
+        final TemperatureConverterActivity activity = getActivity();
+        assertNotNull(activity);
+        final double f = activity.getFahrenheit();
+        assertEquals(32.0, f);
+        final double c = activity.getCelsius();
+        assertEquals(TemperatureConverter.fahrenheitToCelsius(f), c);
+    }
 }
