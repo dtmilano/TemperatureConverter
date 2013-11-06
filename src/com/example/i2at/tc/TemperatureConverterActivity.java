@@ -123,14 +123,14 @@ public class TemperatureConverterActivity extends LocalViewServerActivity {
                 return;
             }
             
-            if (dest == mCelsius) {
-                mCelsius.setNumber(TemperatureConverter.fahrenheitToCelsius(mFahrenheit.getNumber()));
+            final double f = mFahrenheit.getNumber();
+            final double c = mCelsius.getNumber();
+            
+            if (dest == mCelsius && ! Double.isNaN(f)) {
+                mCelsius.setNumber(TemperatureConverter.fahrenheitToCelsius(f));
             }
-            else if (dest == mFahrenheit) {
-                mFahrenheit.setNumber(TemperatureConverter.celsiusToFahrenheit(mCelsius.getNumber()));
-            }
-            else {
-                throw new IllegalArgumentException("View=" + dest + " not supported");
+            else if (dest == mFahrenheit && !Double.isNaN(c)) {
+                mFahrenheit.setNumber(TemperatureConverter.celsiusToFahrenheit(c));
             }
         }
     };
