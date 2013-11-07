@@ -29,6 +29,7 @@ public class TemperatureConverterActivityTests extends
     private TemperatureConverterActivity mActivity;
     private EditNumber mCelsius;
     private EditNumber mFahrenheit;
+    private Instrumentation mInstrumentation;
 
     /**
      * @param name
@@ -44,6 +45,9 @@ public class TemperatureConverterActivityTests extends
      */
     protected void setUp() throws Exception {
         super.setUp();
+
+        mInstrumentation = getInstrumentation();
+        assertNotNull(mInstrumentation);
 
         mActivity = getActivity();
         assertNotNull(mActivity);
@@ -121,6 +125,45 @@ public class TemperatureConverterActivityTests extends
         assertTrue("delta=" + delta + " expected=" + expected + " actual=" + actual, delta < 0.005);
     }
 
+    public void testFahrenheitToCelsiusConversion_text() throws Throwable {
+        final double f = 32.5;
+        runTestOnUiThread(new Runnable() {
+
+            @Override
+            public void run() {
+                mCelsius.clear();
+                mFahrenheit.clear();
+                assertTrue(mFahrenheit.requestFocus());
+            }
+        });
+
+        mInstrumentation.sendStringSync(Double.toString(f));
+        assertEquals(f, mActivity.getFahrenheit());
+        final double expected = TemperatureConverter.fahrenheitToCelsius(f);
+        final double actual = mCelsius.getNumber();
+        final double delta = Math.abs(expected - actual);
+        assertTrue("delta=" + delta + " expected=" + expected + " actual=" + actual, delta < 0.005);
+    }
+
+    public void testCelsiusToFahrenheitConversion_text() throws Throwable {
+        final double c = 100;
+        runTestOnUiThread(new Runnable() {
+
+            @Override
+            public void run() {
+                mCelsius.clear();
+                mFahrenheit.clear();
+                assertTrue(mCelsius.requestFocus());
+            }
+        });
+        mInstrumentation.sendStringSync(Double.toString(c));
+        assertEquals(c, mActivity.getCelsius());
+        final double expected = TemperatureConverter.celsiusToFahrenheit(c);
+        final double actual = mFahrenheit.getNumber();
+        final double delta = Math.abs(expected - actual);
+        assertTrue("delta=" + delta + " expected=" + expected + " actual=" + actual, delta < 0.005);
+    }
+
     @UiThreadTest
     public void testCelsiusIncompleteNumberEntered() {
         mCelsius.clear();
@@ -144,7 +187,7 @@ public class TemperatureConverterActivityTests extends
         // and there's nothing to verify
         assertTrue(true);
     }
-    
+
     @Suppress
     public void testForceFail() {
         fail("Forced fail");
