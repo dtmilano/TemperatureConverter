@@ -9,6 +9,7 @@ import android.test.ActivityInstrumentationTestCase2;
 import android.test.UiThreadTest;
 import android.test.ViewAsserts;
 import android.test.suitebuilder.annotation.SmallTest;
+import android.test.suitebuilder.annotation.Suppress;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -16,8 +17,6 @@ import android.view.View;
 import com.example.i2at.tc.EditNumber;
 import com.example.i2at.tc.TemperatureConverter;
 import com.example.i2at.tc.TemperatureConverterActivity;
-
-import android.test.suitebuilder.annotation.Suppress;
 
 /**
  * @author diego
@@ -157,11 +156,34 @@ public class TemperatureConverterActivityTests extends
             }
         });
         mInstrumentation.sendStringSync(Double.toString(c));
-        assertEquals(c, mActivity.getCelsius());
-        final double expected = TemperatureConverter.celsiusToFahrenheit(c);
-        final double actual = mFahrenheit.getNumber();
-        final double delta = Math.abs(expected - actual);
-        assertTrue("delta=" + delta + " expected=" + expected + " actual=" + actual, delta < 0.005);
+
+        runTestOnUiThread(new Runnable() {
+
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+                mActivity.getCelsius();
+                assertEquals(c, mCelsius.getNumber());
+                assertEquals(c, mActivity.getCelsius());
+                final double expected = TemperatureConverter.celsiusToFahrenheit(c);
+                final double actual = mFahrenheit.getNumber();
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+                assertEquals(c, mActivity.getFahrenheit());
+                final double delta = Math.abs(expected - actual);
+                assertTrue("delta=" + delta + " expected=" + expected + " actual=" + actual,
+                        delta < 0.005);
+            }
+        });
     }
 
     @UiThreadTest

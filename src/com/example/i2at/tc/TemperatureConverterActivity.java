@@ -69,6 +69,9 @@ public class TemperatureConverterActivity extends LocalViewServerActivity {
         @Override
         public void onTextChanged(CharSequence s, int start, int before,
                 int count) {
+            if (DEBUG) {
+                Log.d(TAG, "onTextChanged(" + s + ", " + start + ", " + before + ") ###############");
+            }
             if (!mDest.hasWindowFocus() || mDest.hasFocus() || s == null) {
                 return;
             }
