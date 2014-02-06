@@ -1,6 +1,9 @@
 
 package com.example.i2at.tc;
 
+import java.util.List;
+
+import android.app.Activity;
 import android.content.ComponentName;
 import android.content.pm.InstrumentationInfo;
 import android.os.Bundle;
@@ -14,17 +17,13 @@ import android.view.View.OnFocusChangeListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.debug.hv.LocalViewServerActivity;
-
-import java.util.List;
-
 /**
  * <em>TemperatureConverterActivity</em> is a demonstration Activity used to
  * show some testing features.
  * 
  * @author diego
  */
-public class TemperatureConverterActivity extends LocalViewServerActivity {
+public class TemperatureConverterActivity extends Activity {
     public static final String FAHRENHEIT_KEY = "com.example.i2at.tc.Fahrenheit";
 
     public static final String CELSIUS_KEY = "com.example.i2at.tc.Celsius";
