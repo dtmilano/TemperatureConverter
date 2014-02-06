@@ -19,6 +19,8 @@ public class EmmaInstrumentation extends Instrumentation implements FinishListen
 
     private static final boolean LOGD = true;
 
+    // Fix by attaching sdcard in android avd.
+    // java.io.FileNotFoundException: /mnt/sdcard/coverage.ec: open failed: EROFS (Read-only file system)
     private static final String DEFAULT_COVERAGE_FILE_PATH = "/mnt/sdcard/coverage.ec";
 
     private final Bundle mResults = new Bundle();
